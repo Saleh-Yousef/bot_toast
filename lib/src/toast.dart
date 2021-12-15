@@ -78,10 +78,7 @@ class BotToast {
       Color? backgroundColor,
       double? borderRadius,
       Alignment? align = const Alignment(0, -0.99),
-      List<DismissDirection> dismissDirections = const [
-        DismissDirection.horizontal,
-        DismissDirection.up
-      ],
+      List<DismissDirection> dismissDirections = const [DismissDirection.horizontal, DismissDirection.up],
       Icon? closeIcon,
       Duration? duration = const Duration(seconds: 2),
       Duration? animationDuration,
@@ -112,14 +109,8 @@ class BotToast {
         onlyOne: onlyOne,
         crossPage: crossPage,
         title: (_) => Text(title, style: titleStyle),
-        subtitle: subTitle == null
-            ? null
-            : (_) => Text(subTitle, style: subTitleStyle),
-        trailing: hideCloseButton
-            ? null
-            : (cancel) => IconButton(
-                icon: closeIcon ?? const Icon(Icons.cancel),
-                onPressed: cancel));
+        subtitle: subTitle == null ? null : (_) => Text(subTitle, style: subTitleStyle),
+        trailing: hideCloseButton ? null : (cancel) => IconButton(icon: closeIcon ?? const Icon(Icons.cancel), onPressed: cancel));
   }
 
   ///显示一个标准的通知Toast
@@ -154,10 +145,7 @@ class BotToast {
       double? borderRadius,
       GestureLongPressCallback? onLongPress,
       Alignment? align = const Alignment(0, -0.99),
-      List<DismissDirection> dismissDirections = const [
-        DismissDirection.horizontal,
-        DismissDirection.up
-      ],
+      List<DismissDirection> dismissDirections = const [DismissDirection.horizontal, DismissDirection.up],
       BackButtonBehavior? backButtonBehavior,
       Duration? duration = const Duration(seconds: 2),
       Duration? animationDuration,
@@ -223,10 +211,7 @@ class BotToast {
       WrapAnimation? wrapAnimation,
       WrapAnimation? wrapToastAnimation = notificationAnimation,
       Alignment? align = const Alignment(0, -0.99),
-      List<DismissDirection> dismissDirections = const [
-        DismissDirection.horizontal,
-        DismissDirection.up
-      ],
+      List<DismissDirection> dismissDirections = const [DismissDirection.horizontal, DismissDirection.up],
       Duration? duration = const Duration(seconds: 2),
       Duration? animationDuration,
       Duration? animationReverseDuration,
@@ -246,8 +231,7 @@ class BotToast {
         onClose: onClose,
         duration: duration,
         backButtonBehavior: backButtonBehavior,
-        animationDuration:
-            animationDuration ?? const Duration(milliseconds: 256),
+        animationDuration: animationDuration ?? const Duration(milliseconds: 256),
         animationReverseDuration: animationReverseDuration,
         wrapAnimation: wrapAnimation,
         wrapToastAnimation: (controller, cancel, child) {
@@ -257,12 +241,10 @@ class BotToast {
           if (align != null) {
             child = Align(alignment: align, child: child);
           }
-          return SafeArea(child: child);
+          return child;
         },
         toastBuilder: (cancelFunc) => NotificationToast(
-            child: toastBuilder(cancelFunc),
-            dismissDirections: dismissDirections,
-            slideOffFunc: enableSlideOff ? cancelFunc : null),
+            child: toastBuilder(cancelFunc), dismissDirections: dismissDirections, slideOffFunc: enableSlideOff ? cancelFunc : null),
         groupKey: notificationKey);
   }
 
@@ -292,12 +274,10 @@ class BotToast {
       WrapAnimation? wrapToastAnimation = textAnimation,
       Color backgroundColor = Colors.transparent,
       Color contentColor = Colors.black54,
-      BorderRadiusGeometry borderRadius =
-          const BorderRadius.all(Radius.circular(8)),
+      BorderRadiusGeometry borderRadius = const BorderRadius.all(Radius.circular(8)),
       TextStyle textStyle = const TextStyle(fontSize: 17, color: Colors.white),
       AlignmentGeometry? align = const Alignment(0, 0.8),
-      EdgeInsetsGeometry contentPadding =
-          const EdgeInsets.only(left: 14, right: 14, top: 5, bottom: 7),
+      EdgeInsetsGeometry contentPadding = const EdgeInsets.only(left: 14, right: 14, top: 5, bottom: 7),
       Duration? duration = const Duration(seconds: 2),
       Duration? animationDuration,
       Duration? animationReverseDuration,
@@ -376,8 +356,7 @@ class BotToast {
         backButtonBehavior: backButtonBehavior,
         onClose: onClose,
         duration: duration,
-        animationDuration:
-            animationDuration ?? const Duration(milliseconds: 256),
+        animationDuration: animationDuration ?? const Duration(milliseconds: 256),
         animationReverseDuration: animationReverseDuration,
         wrapAnimation: wrapAnimation,
         wrapToastAnimation: (controller, cancel, child) {
@@ -387,7 +366,7 @@ class BotToast {
           if (align != null) {
             child = Align(alignment: align, child: child);
           }
-          return SafeArea(child: child);
+          return child;
         },
         toastBuilder: toastBuilder);
   }
@@ -479,8 +458,7 @@ class BotToast {
         enableKeyboardSafeArea: enableKeyboardSafeArea,
         toastBuilder: toastBuilder,
         backButtonBehavior: backButtonBehavior,
-        animationDuration:
-            animationDuration ?? const Duration(milliseconds: 300),
+        animationDuration: animationDuration ?? const Duration(milliseconds: 300),
         animationReverseDuration: animationReverseDuration,
         wrapAnimation: wrapAnimation,
         wrapToastAnimation: (controller, cancel, child) {
@@ -490,7 +468,7 @@ class BotToast {
           if (align != null) {
             child = Align(alignment: align, child: child);
           }
-          return SafeArea(child: child);
+          return child;
         },
         onClose: onClose,
         clickClose: clickClose,
@@ -551,21 +529,17 @@ class BotToast {
       bool enableSafeArea = true}) {
     assert(verticalOffset >= 0.0, 'must be a positive number');
     assert(horizontalOffset >= 0.0, 'must be a positive number');
-    assert(!(targetContext != null && target != null),
-        'targetContext and target cannot coexist');
-    assert(targetContext != null || target != null,
-        'targetContext and target must exist one');
+    assert(!(targetContext != null && target != null), 'targetContext and target cannot coexist');
+    assert(targetContext != null || target != null, 'targetContext and target must exist one');
 
     Rect targetRect;
     if (target == null) {
       RenderObject renderObject = targetContext!.findRenderObject()!;
       if (renderObject is RenderBox) {
         final position = renderObject.localToGlobal(Offset.zero);
-        targetRect = Rect.fromLTWH(position.dx, position.dy,
-            renderObject.size.width, renderObject.size.height);
+        targetRect = Rect.fromLTWH(position.dx, position.dy, renderObject.size.width, renderObject.size.height);
       } else {
-        throw Exception(
-            'context.findRenderObject() return result must be RenderBox class');
+        throw Exception('context.findRenderObject() return result must be RenderBox class');
       }
     } else {
       targetRect = Rect.fromLTWH(target.dx, target.dy, 0, 0); //点矩形
@@ -580,8 +554,7 @@ class BotToast {
         enableKeyboardSafeArea: enableKeyboardSafeArea,
         backgroundColor: backgroundColor,
         ignoreContentClick: ignoreContentClick,
-        animationDuration:
-            animationDuration ?? const Duration(milliseconds: 150),
+        animationDuration: animationDuration ?? const Duration(milliseconds: 150),
         animationReverseDuration: animationReverseDuration,
         duration: duration,
         wrapAnimation: wrapAnimation,
@@ -598,9 +571,7 @@ class BotToast {
                       horizontalOffset: horizontalOffset,
                       enableSafeArea: enableSafeArea,
                       preferDirection: preferDirection),
-                  child: wrapToastAnimation != null
-                      ? wrapToastAnimation(controller, cancel, child)
-                      : child),
+                  child: wrapToastAnimation != null ? wrapToastAnimation(controller, cancel, child) : child),
             ),
         toastBuilder: attachedBuilder);
   }
@@ -653,9 +624,7 @@ class BotToast {
     Duration? duration,
     VoidCallback? onClose,
   }) {
-    AnimationController? controller = _createAnimationController(
-        animationDuration,
-        reverseDuration: animationReverseDuration);
+    AnimationController? controller = _createAnimationController(animationDuration, reverseDuration: animationReverseDuration);
 
     return showEnhancedWidget(
         allowClick: allowClick,
@@ -683,14 +652,10 @@ class BotToast {
                     controller!.dispose();
                     controller = null;
                   },
-                  child: wrapAnimation != null
-                      ? wrapAnimation(controller!, cancel, child)
-                      : child),
+                  child: wrapAnimation != null ? wrapAnimation(controller!, cancel, child) : child),
             ),
-        toastBuilder: (cancelFunc) => wrapToastAnimation != null
-            ? wrapToastAnimation(
-                controller!, cancelFunc, toastBuilder(cancelFunc))
-            : toastBuilder(cancelFunc));
+        toastBuilder: (cancelFunc) =>
+            wrapToastAnimation != null ? wrapToastAnimation(controller!, cancelFunc, toastBuilder(cancelFunc)) : toastBuilder(cancelFunc));
   }
 
   /*区域图
@@ -775,8 +740,7 @@ class BotToast {
     };
 
     //onlyOne 功能
-    final List<CancelFunc> cache =
-        (cacheCancelFunc[groupKey ?? defaultKey] ??= []);
+    final List<CancelFunc> cache = (cacheCancelFunc[groupKey ?? defaultKey] ??= []);
     if (onlyOne) {
       final clone = cache.toList();
       cache.clear();
@@ -805,13 +769,11 @@ class BotToast {
     //拦截点击返回事件
     VoidCallback? unRegisterFunc;
     if (backButtonBehavior == BackButtonBehavior.ignore) {
-      unRegisterFunc =
-          BotToastWidgetsBindingObserver.singleton.registerPopListener(() {
+      unRegisterFunc = BotToastWidgetsBindingObserver.singleton.registerPopListener(() {
         return true;
       });
     } else if (backButtonBehavior == BackButtonBehavior.close) {
-      unRegisterFunc =
-          BotToastWidgetsBindingObserver.singleton.registerPopListener(() {
+      unRegisterFunc = BotToastWidgetsBindingObserver.singleton.registerPopListener(() {
         dismissFunc();
         unRegisterFunc?.call();
         unRegisterFunc = null;
@@ -834,16 +796,13 @@ class BotToast {
               onClose?.call();
               unRegisterFunc?.call();
             }, child: Builder(builder: (BuildContext context) {
-              final TextStyle textStyle =
-                  Theme.of(context).textTheme.bodyText2!;
+              final TextStyle textStyle = Theme.of(context).textTheme.bodyText2!;
               Widget child = DefaultTextStyle(
                   style: textStyle,
                   child: Stack(children: <Widget>[
                     Listener(
                       onPointerDown: clickClose ? (_) => dismissFunc() : null,
-                      behavior: allowClick
-                          ? HitTestBehavior.translucent
-                          : HitTestBehavior.opaque,
+                      behavior: allowClick ? HitTestBehavior.translucent : HitTestBehavior.opaque,
                       child: const SizedBox.expand(),
                     ),
                     IgnorePointer(
@@ -854,9 +813,7 @@ class BotToast {
                       child: toastBuilder(dismissFunc),
                     )
                   ]));
-              return warpWidget != null
-                  ? warpWidget(dismissFunc, child)
-                  : child;
+              return warpWidget != null ? warpWidget(dismissFunc, child) : child;
             })),
           );
         });
@@ -871,8 +828,7 @@ class BotToast {
   ///[groupKey] 代表分组的key,主要用于[removeAll]和[remove]
   ///[CancelFunc] 关闭函数,主动调用将会关闭此Toast
   ///这是个核心方法
-  static CancelFunc showWidget(
-      {required ToastBuilder toastBuilder, UniqueKey? key, String? groupKey}) {
+  static CancelFunc showWidget({required ToastBuilder toastBuilder, UniqueKey? key, String? groupKey}) {
     final gk = groupKey ?? defaultKey;
     final uniqueKey = key ?? UniqueKey();
     final CancelFunc cancelFunc = () {
@@ -895,11 +851,7 @@ class BotToast {
     botToastManager.cleanAll();
   }
 
-  static AnimationController _createAnimationController(Duration duration,
-      {Duration? reverseDuration}) {
-    return AnimationController(
-        vsync: TickerProviderImpl(),
-        duration: duration,
-        reverseDuration: reverseDuration);
+  static AnimationController _createAnimationController(Duration duration, {Duration? reverseDuration}) {
+    return AnimationController(vsync: TickerProviderImpl(), duration: duration, reverseDuration: reverseDuration);
   }
 }
